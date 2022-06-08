@@ -1,4 +1,4 @@
-# shell_via_php
+# shell_via_http
 
 I'm using a shared hosting and have no access to shell via ssh
 

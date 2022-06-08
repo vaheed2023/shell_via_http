@@ -10,8 +10,8 @@ For me php shell_exec throws "shell_exec is disabled for security reason"
 
 But fortunately I'm able to run php exec command
 
-With some minor modification you can change program to use shell_exec instead
+With some minor modification you can make program to use shell_exec instead
 
-By the way laravel is n't really neede here and the only laravel dependent method here is $request->input() which you can use $_POST instead
+By the way laravel is n't really needed here and the only laravel dependent method here is $request->input() which you can use $_POST instead
 
 
